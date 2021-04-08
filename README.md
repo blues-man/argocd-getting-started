@@ -125,29 +125,29 @@ Here is the `Application` manifest we are going to use:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bgdk-app
+  name: bgd-app
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: openshift-gitops
+    namespace: bgd
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: resources/manifests/bgdk-yaml
-    repoURL: https://github.com/RedHatWorkshops/argocd-getting-started
+    path: apps/bgd/base
+    repoURL: https://github.com/redhat-developer-demos/openshift-gitops-examples
     targetRevision: main
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
+      selfHeal: false
   sync:
     comparedTo:
       destination:
-        namespace: openshift-gitops
+        namespace: bgd
         server: https://kubernetes.default.svc
       source:
-        path: resources/manifests/bgdk-yaml
-        repoURL: https://github.com/RedHatWorkshops/argocd-getting-started
+        path: apps/bgd/base
+        repoURL: https://github.com/redhat-developer-demos/openshift-gitops-examples
         targetRevision: main
 ```
 
@@ -162,7 +162,7 @@ Let's break this down a bit.
 The `Application` CR (`CustomResource`) can be applied using [this repo](resources/manifests/bgdk-app) by running:
 
 ```shell
-oc apply -k https://github.com/RedHatWorkshops/argocd-getting-started/resources/manifests/bgdk-app
+oc apply -f https://raw.githubusercontent.com/blues-man/learn-katacoda/gitops-path/gitops/getting-started/assets/bgd-app/bgd-app.yaml
 ```
 
 This should create the `bgdk-app` in the ArgoCD UI.
