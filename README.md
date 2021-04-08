@@ -107,7 +107,7 @@ You should see this screen:
 
 # Deploying A Sample Application
 
-In [this repo](resources/manifests/bgdk-yaml), we have some manifesets
+In [this repo](https://github.com/redhat-developer-demos/openshift-gitops-examples), we have some manifesets
 that you can use to test. This is a simple app that includes:
 
 * [A Namespace](resources/manifests/bgdk-yaml/bgd-namespace.yaml)
