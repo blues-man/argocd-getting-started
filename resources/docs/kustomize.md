@@ -21,7 +21,7 @@ In this section we'll be going over:
 If you haven't already, delete the previous application before starting.
 
 ```shell
-oc delete -k https://github.com/RedHatWorkshops/argocd-getting-started/resources/manifests/bgdk-app
+oc delete -f resources/manifests/bgd-app
 ```
 
 # Creating An App With Kustomize
@@ -89,10 +89,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: bgdk-appk
-  namespace: argocd
+  namespace: openshift-gitops
 spec:
   destination:
-    namespace: argocd
+    namespace: openshift-gitops
     server: https://kubernetes.default.svc
   project: default
   source:
@@ -106,7 +106,7 @@ spec:
   sync:
     comparedTo:
       destination:
-        namespace: argocd
+        namespace: openshift-gitops
         server: https://kubernetes.default.svc
       source:
         path: resources/manifests/bgdk-kustomize
@@ -122,7 +122,7 @@ perform a `kustomize build` before applying the manifest. Let's apply
 this manifest.
 
 ```shell
-oc apply -k https://github.com/RedHatWorkshops/argocd-getting-started/resources/manifests/bgdk-appk
+oc apply -k resources/manifests/bgdk-appk
 ```
 
 > :bulb: **NOTE**: You're actually using Kustomize to deploy the app that's using Kustomize! That's what the `-k` is in `oc apply`. Take a look at [the repo](../manifests/bgdk-appk) to to investigate further.
